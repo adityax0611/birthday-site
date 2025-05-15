@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday, Arya!</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #ff6b6b, #4ecdc4, #45b1e8);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow-y: auto;
+      font-family: 'Comic Sans MS', 'Arial', sans-serif;
+      position: relative;
+      padding: 20px;
+    }
+    .background-icons {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://img.icons8.com/ios/50/000000/medical-heart.png') repeat;
+      background-size: 50px;
+      opacity: 0.1;
+      z-index: 0;
+    }
+    .heartbeat-line {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #fff;
+      opacity: 0.3;
+      animation: heartbeat-line 2s ease-in-out infinite;
+    }
+    @keyframes heartbeat-line {
+      0% { transform: translateY(0) scaleX(1); }
+      10% { transform: translateY(-10px) scaleX(1.05); }
+      20% { transform: translateY(0) scaleX(1); }
+      30% { transform: translateY(10px) scaleX(1.1); }
+      40% { transform: translateY(0) scaleX(1); }
+      100% { transform: translateY(0) scaleX(1); }
+    }
+    .sparkle {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: sparkle 3s ease-in-out infinite;
+    }
+    @keyframes sparkle {
+      0% { transform: scale(0); opacity: 0.7; }
+      50% { transform: scale(1.5); opacity: 0.3; }
+      100% { transform: scale(0); opacity: 0; }
+    }
+    .balloon {
+      position: absolute;
+      bottom: -120px;
+      width: 60px;
+      height: 80px;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      animation: float 6s ease-in-out infinite;
+    }
+    .balloon::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 20px;
+      background: #333;
+    }
+    .stethoscope-balloon {
+      position: absolute;
+      bottom: -120px;
+      width: 60px;
+      height: 80px;
+      background: url('https://img.icons8.com/ios-filled/50/000000/stethoscope.png') no-repeat center;
+      background-size: contain;
+      animation: float 7s ease-in-out infinite;
+    }
+    .caduceus-balloon {
+      position: absolute;
+      bottom: -120px;
+      width: 60px;
+      height: 80px;
+      background: url('https://img.icons8.com/ios-filled/50/000000/caduceus.png') no-repeat center;
+      background-size: contain;
+      animation: float 6.5s ease-in-out infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-120vh) rotate(15deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+    .cake-container {
+      position: relative;
+      text-align: center;
+      z-index: 1;
+      cursor: pointer;
+      margin: 20px 0;
+      transform: translateX(100px); /* Shift cake further right */
+    }
+    .cake {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      background: url('https://img.icons8.com/color/200/000000/birthday-cake.png') no-repeat center;
+      background-size: contain;
+      z-index: 1;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    }
+    .slice {
+      position: absolute;
+      top: 0;
+      left: 125px;
+      width: 125px;
+      height: 250px;
+      background: url('https://img.icons8.com/color/200/000000/birthday-cake.png') no-repeat -125px 0;
+      background-size: 250px;
+      transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+      z-index: 2;
+    }
+    .slice.cut {
+      transform: translate(80px, 80px) rotate(15deg);
+      opacity: 0;
+    }
+    .cut-message {
+      display: none;
+      margin-top: 10px;
+      font-size: 1.5rem;
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 1s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .photo-frame {
+      background: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transform: rotate(-5deg);
+      margin: 10px;
+    }
+    .photo-frame:nth-child(2) {
+      transform: rotate(5deg);
+    }
+    .message-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin: 20px 0;
+      max-width: 500px;
+    }
+    .secret-message-container {
+      margin: 20px 0;
+      text-align: center;
+    }
+    .secret-message {
+      background: #f0f0f0 url('https://img.icons8.com/ios/50/000000/prescription.png') no-repeat center;
+      background-size: 30px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      margin: 0 auto;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .secret-message:hover {
+      background-color: #e0e0e0;
+    }
+    .secret-content {
+      display: none;
+      margin-top: 10px;
+      padding: 15px;
+      background: #fff;
+      border: 2px solid #45b1e8;
+      border-radius: 10px;
+      animation: slideDown 0.5s ease-in-out;
+    }
+    .secret-content.revealed {
+      display: block;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .typewriter {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid white;
+      animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blink-caret {
+      from, to { border-right-color: transparent; }
+      50% { border-right-color: white; }
+    }
+    .heartbeat {
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      10% { transform: scale(1.1); }
+      20% { transform: scale(1); }
+      30% { transform: scale(1.15); }
+      40% { transform: scale(1); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-icons"></div>
+  <div class="heartbeat-line"></div>
+  <div class="text-center z-10">
+    <h1 class="text-5xl md:text-7xl font-bold text-white drop-shadow-lg typewriter heartbeat">
+      Happy Birthday, Arya!
+    </h1>
+    <p class="mt-4 text-2xl md:text-3xl text-white drop-shadow-md animate-fade-in">
+      Wishing you a day full of healing joy!
+    </p>
+    <button
+      onclick="launchConfetti()"
+      class="mt-6 px-8 py-4 bg-gradient-to-r from-yellow-400 to-pink-500 text-white font-semibold rounded-full shadow-lg hover:scale-110 transition transform"
+    >
+      Medical Party Blast!
+    </button>
+
+    <!-- Photo Section -->
+    <div class="flex justify-center mt-6">
+      <img src="https://via.placeholder.com/150x200?text=Photo+1" alt="Photo 1" class="w-32 h-40 photo-frame">
+      <img src="https://via.placeholder.com/150x200?text=Photo+2" alt="Photo 2" class="w-32 h-40 photo-frame">
+    </div>
+
+    <!-- Personalized Message -->
+    <div class="message-box mx-auto">
+      <p class="text-lg text-gray-800">
+        Dear Arya, your passion for medicine is a gift to the world! May this birthday spark joy, fuel your dreams, and bring you closer to becoming an incredible doctor. Celebrate big, future lifesaver!
+      </p>
+    </div>
+
+    <!-- Secret Message Section -->
+    <div class="secret-message-container">
+      <div class="secret-message" onclick="revealMessage()">
+        <p class="text-lg text-gray-800">Click for a Special Prescription!</p>
+      </div>
+      <div id="secretContent" class="secret-content">
+        <p class="text-lg text-gray-800">
+          Prescription for Arya: Take one dose of endless laughter, sprinkle in courage for your medical journey, and mix with love and support from those who cherish you. You're destined to heal hearts and lives—starting with this birthday!
+        </p>
+      </div>
+    </div>
+
+    <!-- Cake Cutting Section -->
+    <div class="cake-container" onclick="cutCake()">
+      <div class="cake"></div>
+      <div id="cakeSlice" class="slice"></div>
+      <p id="cutMessage" class="cut-message">Yay, Arya! You cut the cake!</p>
+    </div>
+  </div>
+
+  <!-- Balloons with varied colors, stethoscope, and caduceus -->
+  <div class="balloon" style="left: 10%; animation-delay: 0s; background: radial-gradient(circle, #ffcccb, #ff6b6b);"></div>
+  <div class="balloon" style="left: 20%; animation-delay: 1s; background: radial-gradient(circle, #a1eafb, #45b1e8);"></div>
+  <div class="stethoscope-balloon" style="left: 50%; animation-delay: 1.5s;"></div>
+  <div class="caduceus-balloon" style="left: 70%; animation-delay: 2s;"></div>
+  <div class="balloon" style="left: 90%; animation-delay: 3s; background: radial-gradient(circle, #f3c4fb, #ff99cc);"></div>
+
+  <!-- Sparkles -->
+  <div class="sparkle" style="top: 10%; left: 15%; animation-delay: 0s;"></div>
+  <div class="sparkle" style="top: 20%; left: 75%; animation-delay: 0.5s;"></div>
+  <div class="sparkle" style="top: 60%; left: 30%; animation-delay: 1s;"></div>
+  <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 1.5s;"></div>
+
+  <script>
+    function launchConfetti() {
+      confetti({
+        particleCount: 150,
+        spread: 80,
+        origin: { y: 0.5 },
+        colors: ['#ff6b6b', '#4ecdc4', '#45b1e8', '#ffe66d', '#ff99cc'],
+        shapes: ['circle', 'square', 'triangle'],
+        scalar: 1.2,
+      });
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.5 },
+        shapes: ['text'],
+        text: ['💊', '💉', '🩺', '⚕️'],
+        colors: ['#ffffff', '#ff6b6b', '#45b1e8'],
+        scalar: 2,
+      });
+    }
+
+    let isCut = false;
+    function cutCake() {
+      if (!isCut) {
+        isCut = true;
+        document.getElementById('cakeSlice').classList.add('cut');
+        document.getElementById('cutMessage').style.display = 'block';
+        launchConfetti();
+      }
+    }
+
+    function revealMessage() {
+      const secretContent = document.getElementById('secretContent');
+      if (!secretContent.classList.contains('revealed')) {
+        secretContent.classList.add('revealed');
+        launchConfetti();
+      }
+    }
+
+    window.onload = () => {
+      launchConfetti();
+      // Random balloon positioning and animation
+      document.querySelectorAll('.balloon, .stethoscope-balloon, .caduceus-balloon').forEach(balloon => {
+        balloon.style.left = `${Math.random() * 80 + 10}%`;
+        balloon.style.animationDuration = `${Math.random() * 4 + 5}s`;
+        balloon.style.transform = `scale(${Math.random() * 0.5 + 0.8})`;
+      });
+      // Random sparkle positioning
+      document.querySelectorAll('.sparkle').forEach(sparkle => {
+        sparkle.style.top = `${Math.random() * 80 + 10}%`;
+        sparkle.style.left = `${Math.random() * 80 + 10}%`;
+        sparkle.style.animationDuration = `${Math.random() * 2 + 2}s`;
+      });
+    };
+  </script>
+</body>
+</html>
