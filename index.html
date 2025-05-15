@@ -6,6 +6,7 @@
   <title>Happy Birthday, Arya!</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       background: linear-gradient(to bottom right, #ff6b6b, #4ecdc4, #45b1e8);
@@ -15,9 +16,17 @@
       justify-content: center;
       align-items: center;
       overflow-y: auto;
-      font-family: 'Comic Sans MS', 'Arial', sans-serif;
+      font-family: 'Lora', serif;
       position: relative;
       padding: 20px;
+    }
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-weight: 700;
+    }
+    p {
+      font-family: 'Dancing Script', cursive;
+      font-weight: 400;
     }
     .background-icons {
       position: absolute;
@@ -109,7 +118,7 @@
       z-index: 1;
       cursor: pointer;
       margin: 20px 0;
-      transform: translateX(100px); /* Shift cake further right */
+      transform: translateX(100px);
     }
     .cake {
       position: relative;
@@ -225,6 +234,24 @@
       40% { transform: scale(1); }
       100% { transform: scale(1); }
     }
+    .music-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+    .music-selector {
+      padding: 5px;
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      font-family: 'Lora', serif;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -244,21 +271,17 @@
       Medical Party Blast!
     </button>
 
-    <!-- Photo Section -->
-
     <div class="flex justify-center mt-6">
-  <img src="ChatGPT Image May 16, 2025, 12_16_09 AM.png" alt="Photo 1" class="w-32 h-40 photo-frame">
-  <img src="My ChatGPT image.png" alt="Photo 2" class="w-32 h-40 photo-frame">
-</div>
+      <img src="hatGPT Image May 16, 2025, 12_16_09 AM.png" alt="Photo 1" class="w-32 h-40 photo-frame">
+      <img src="My ChatGPT image.png" alt="Photo 2" class="w-32 h-40 photo-frame">
+    </div>
 
-    <!-- Personalized Message -->
     <div class="message-box mx-auto">
       <p class="text-lg text-gray-800">
         Dear Arya, your passion for medicine is a gift to the world! May this birthday spark joy, fuel your dreams, and bring you closer to becoming an incredible doctor. Celebrate big, future lifesaver!
       </p>
     </div>
 
-    <!-- Secret Message Section -->
     <div class="secret-message-container">
       <div class="secret-message" onclick="revealMessage()">
         <p class="text-lg text-gray-800">Click for a Special Prescription!</p>
@@ -270,7 +293,6 @@
       </div>
     </div>
 
-    <!-- Cake Cutting Section -->
     <div class="cake-container" onclick="cutCake()">
       <div class="cake"></div>
       <div id="cakeSlice" class="slice"></div>
@@ -278,18 +300,33 @@
     </div>
   </div>
 
-  <!-- Balloons with varied colors, stethoscope, and caduceus -->
   <div class="balloon" style="left: 10%; animation-delay: 0s; background: radial-gradient(circle, #ffcccb, #ff6b6b);"></div>
   <div class="balloon" style="left: 20%; animation-delay: 1s; background: radial-gradient(circle, #a1eafb, #45b1e8);"></div>
   <div class="stethoscope-balloon" style="left: 50%; animation-delay: 1.5s;"></div>
   <div class="caduceus-balloon" style="left: 70%; animation-delay: 2s;"></div>
   <div class="balloon" style="left: 90%; animation-delay: 3s; background: radial-gradient(circle, #f3c4fb, #ff99cc);"></div>
 
-  <!-- Sparkles -->
   <div class="sparkle" style="top: 10%; left: 15%; animation-delay: 0s;"></div>
   <div class="sparkle" style="top: 20%; left: 75%; animation-delay: 0.5s;"></div>
   <div class="sparkle" style="top: 60%; left: 30%; animation-delay: 1s;"></div>
   <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 1.5s;"></div>
+
+  <div class="music-toggle">
+    <button id="musicToggle" class="px-4 py-2 bg-white text-gray-800 font-semibold rounded-full shadow-lg hover:bg-gray-200 transition">
+      Pause Music
+    </button>
+    <select id="musicSelector" class="music-selector">
+      <option value="https://www.kozco.com/tech/piano2-CoolEdit.mp3" selected>Cheerful Piano</option>
+      <option value="https://www.kozco.com/tech/LJ_120_1.mp3">Upbeat Celebration</option>
+      <option value="https://www.kozco.com/tech/organ.mp3">Festive Organ</option>
+      <!-- Add more tracks here with their URLs -->
+    </select>
+  </div>
+
+  <audio id="birthdayMusic" autoplay loop>
+    <source id="musicSource" src="https://www.kozco.com/tech/piano2-CoolEdit.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
   <script>
     function launchConfetti() {
@@ -330,15 +367,36 @@
       }
     }
 
+    const audio = document.getElementById('birthdayMusic');
+    const musicSource = document.getElementById('musicSource');
+    const toggleButton = document.getElementById('musicToggle');
+    const musicSelector = document.getElementById('musicSelector');
+
+    toggleButton.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        toggleButton.textContent = 'Pause Music';
+      } else {
+        audio.pause();
+        toggleButton.textContent = 'Play Music';
+      }
+    });
+
+    musicSelector.addEventListener('change', () => {
+      const selectedTrack = musicSelector.value;
+      musicSource.src = selectedTrack;
+      audio.load(); // Reload the audio element with the new source
+      audio.play();
+      toggleButton.textContent = 'Pause Music';
+    });
+
     window.onload = () => {
       launchConfetti();
-      // Random balloon positioning and animation
       document.querySelectorAll('.balloon, .stethoscope-balloon, .caduceus-balloon').forEach(balloon => {
         balloon.style.left = `${Math.random() * 80 + 10}%`;
         balloon.style.animationDuration = `${Math.random() * 4 + 5}s`;
         balloon.style.transform = `scale(${Math.random() * 0.5 + 0.8})`;
       });
-      // Random sparkle positioning
       document.querySelectorAll('.sparkle').forEach(sparkle => {
         sparkle.style.top = `${Math.random() * 80 + 10}%`;
         sparkle.style.left = `${Math.random() * 80 + 10}%`;
