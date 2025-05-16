@@ -16,7 +16,7 @@
       justify-content: center;
       align-items: center;
       overflow-y: auto;
-      font-family: Ancizar Serif;
+      font-family: 'Lora', serif;
       position: relative;
       padding: 20px;
     }
@@ -118,7 +118,7 @@
       z-index: 1;
       cursor: pointer;
       margin: 20px 0;
-      transform: translateX(265px);
+      transform: translateX(240px);
     }
     .cake {
       position: relative;
@@ -165,6 +165,7 @@
       margin: 10px;
        width: 20rem; /* Increased by 50% from 24rem (384px) to 36rem (576px) */
       height: 25rem; /* Increased by 50% from 30rem (480px) to 45rem (720px) */
+
     }
     .photo-frame:nth-child(2) {
       transform: rotate(5deg);
@@ -309,7 +310,7 @@ Always remember to take one dose of endless laughter.Hamesha aise hi smile kiya 
         particleCount: 150,
         spread: 80,
         origin: { y: 0.5 },
-        colors: ['#ff6b6b', '#4ecdc4', '#45b1e8', '#ffe66d', '#ff99cc'],
+        colors: ['#ff6b6b', '#4ecdc4, '#45b1e8', '#ffe66d', '#ff99cc'],
         shapes: ['circle', 'square', 'triangle'],
         scalar: 1.2,
       });
@@ -353,6 +354,16 @@ Always remember to take one dose of endless laughter.Hamesha aise hi smile kiya 
         sparkle.style.top = `${Math.random() * 80 + 10}%`;
         sparkle.style.left = `${Math.random() * 80 + 10}%`;
         sparkle.style.animationDuration = `${Math.random() * 2 + 2}s`;
+      });
+
+      // Ensure audio plays on page load
+      const audio = document.getElementById('birthdayMusic');
+      audio.play().catch(error => {
+        console.log('Autoplay failed:', error);
+        // Fallback: Play audio on first user interaction
+        document.addEventListener('click', () => {
+          audio.play();
+        }, { once: true });
       });
     };
   </script>
