@@ -118,7 +118,7 @@
       z-index: 1;
       cursor: pointer;
       margin: 20px 0;
-      transform: translateX(240px);
+      transform: translateX(150px);
     }
     .cake {
       position: relative;
@@ -147,7 +147,7 @@
     .cut-message {
       display: none;
       margin-top: 10px;
-      font-size: 1.5rem;
+      font-size: 2rem;
       color: #fff;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
       animation: fadeIn 1s ease-in;
@@ -163,20 +163,19 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       transform: rotate(-5deg);
       margin: 10px;
-       width: 20rem; /* Increased by 50% from 24rem (384px) to 36rem (576px) */
-      height: 25rem; /* Increased by 50% from 30rem (480px) to 45rem (720px) */
-
+      width: 36rem;
+      height: 45rem;
     }
     .photo-frame:nth-child(2) {
       transform: rotate(5deg);
     }
     .message-box {
       background: #fff;
-      padding: 20px;
+      padding: 30px;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       margin: 20px 0;
-      max-width: 500px;
+      max-width: 700px;
     }
     .secret-message-container {
       margin: 20px 0;
@@ -188,7 +187,7 @@
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      max-width: 500px;
+      max-width: 700px;
       margin: 0 auto;
       cursor: pointer;
       transition: background 0.3s ease;
@@ -243,10 +242,10 @@
   <div class="background-icons"></div>
   <div class="heartbeat-line"></div>
   <div class="text-center z-10">
-    <h1 class="text-5xl md:text-7xl font-bold text-white drop-shadow-lg typewriter heartbeat">
+    <h1 class="text-6xl md:text-8xl font-bold text-white drop-shadow-lg typewriter heartbeat">
       Happy Birthday, Arya!
     </h1>
-    <p class="mt-4 text-2xl md:text-3xl text-white drop-shadow-md animate-fade-in">
+    <p class="mt-4 text-3xl md:text-4xl text-white drop-shadow-md animate-fade-in">
       Wishing you a day full of healing joy!
     </p>
     <button
@@ -257,22 +256,22 @@
     </button>
 
     <div class="flex justify-center mt-6">
-      <img src="ChatGPT Image May 16, 2025, 12_16_09 AM.png" alt="Photo 1" class="w-32 h-40 photo-frame">
-      <img src="My ChatGPT image.png" alt="Photo 2" class="w-32 h-40 photo-frame">
+      <img src="ChatGPT Image May 16, 2025, 12_16_09 AM.png" alt="Photo 1" class="photo-frame">
+      <img src="My ChatGPT image.png" alt="Photo 2" class="photo-frame">
     </div>
 
     <div class="message-box mx-auto">
-      <p class="text-lg text-gray-800">
+      <p class="text-xl text-gray-800">
         Dear Arya, your passion for medicine is a gift to the world! May this birthday spark joy, fuel your dreams, and bring you closer to becoming an incredible doctor. Celebrate big, future lifesaver!
       </p>
     </div>
 
     <div class="secret-message-container">
       <div class="secret-message" onclick="revealMessage()">
-        <p class="text-lg text-gray-800">Click for a Special Prescription!</p>
+        <p class="text-xl text-gray-800">Click for a Special Prescription!</p>
       </div>
       <div id="secretContent" class="secret-content">
-        <p class="text-lg text-gray-800">
+        <p class="text-xl text-gray-800">
           Prescription for Arya: "likh le kaam aayga , baad mai to tu hi degi Prescription.
 Main hamesha yahi bolunga — jo hota hai, acche ke liye hota hai.
 Aaj shayad samajh na aaye, lekin end mein sab clear ho jaata hai.
@@ -300,7 +299,7 @@ Always remember to take one dose of endless laughter.Hamesha aise hi smile kiya 
   <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 1.5s;"></div>
 
   <audio id="birthdayMusic" autoplay loop>
-    <source src="videoplayback.m4a" type="audio/mp4">
+    <source src="https://www.bensound.com/bensound-music/bensound-happybirthday.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
@@ -310,7 +309,7 @@ Always remember to take one dose of endless laughter.Hamesha aise hi smile kiya 
         particleCount: 150,
         spread: 80,
         origin: { y: 0.5 },
-        colors: ['#ff6b6b', '#4ecdc4, '#45b1e8', '#ffe66d', '#ff99cc'],
+        colors: ['#ff6b6b', '#4ecdc4', '#45b1e8', '#ffe66d', '#ff99cc'],
         shapes: ['circle', 'square', 'triangle'],
         scalar: 1.2,
       });
