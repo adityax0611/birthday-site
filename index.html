@@ -145,7 +145,7 @@
       opacity: 0;
     }
     .cut-message {
-      display: none;
+      display: block; /* Changed to show message on page load */
       margin-top: 10px;
       font-size: 2rem;
       color: #fff;
@@ -329,7 +329,7 @@ Always remember to take one dose of endless laughter.Hamesha aise hi smile kiya 
       if (!isCut) {
         isCut = true;
         document.getElementById('cakeSlice').classList.add('cut');
-        document.getElementById('cutMessage').style.display = 'block';
+        document.getElementById('cutMessage').style.display = 'none'; // Hide message after cutting
         launchConfetti();
       }
     }
