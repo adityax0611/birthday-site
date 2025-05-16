@@ -234,24 +234,6 @@
       40% { transform: scale(1); }
       100% { transform: scale(1); }
     }
-    .music-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 10;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 10px;
-    }
-    .music-selector {
-      padding: 5px;
-      background: #fff;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      font-family: 'Lora', serif;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
@@ -292,8 +274,6 @@
 Main hamesha yahi bolunga — jo hota hai, acche ke liye hota hai.
 Aaj shayad samajh na aaye, lekin end mein sab clear ho jaata hai.
 Always remember to take one dose of endless laughter.Hamesha aise hi smile kiya kar — tere face pe bahut suit karta hai 😊
-
-
         </p>
       </div>
     </div>
@@ -316,19 +296,8 @@ Always remember to take one dose of endless laughter.Hamesha aise hi smile kiya 
   <div class="sparkle" style="top: 60%; left: 30%; animation-delay: 1s;"></div>
   <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 1.5s;"></div>
 
-  <div class="music-toggle">
-    <button id="musicToggle" class="px-4 py-2 bg-white text-gray-800 font-semibold rounded-full shadow-lg hover:bg-gray-200 transition">
-      Pause Music
-    </button>
-    <select id="musicSelector" class="music-selector">
-      <option value="videoplayback.m4a" selected>play</option>
-     
-      <!-- Add more tracks here with their URLs -->
-    </select>
-  </div>
-
   <audio id="birthdayMusic" autoplay loop>
-    <source id="videoplayback.m4a" type="audio/mpeg">
+    <source src="videoplayback.m4a" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
@@ -370,29 +339,6 @@ Always remember to take one dose of endless laughter.Hamesha aise hi smile kiya 
         launchConfetti();
       }
     }
-
-    const audio = document.getElementById('birthdayMusic');
-    const musicSource = document.getElementById('musicSource');
-    const toggleButton = document.getElementById('musicToggle');
-    const musicSelector = document.getElementById('musicSelector');
-
-    toggleButton.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.play();
-        toggleButton.textContent = 'Pause Music';
-      } else {
-        audio.pause();
-        toggleButton.textContent = 'Play Music';
-      }
-    });
-
-    musicSelector.addEventListener('change', () => {
-      const selectedTrack = musicSelector.value;
-      musicSource.src = selectedTrack;
-      audio.load(); // Reload the audio element with the new source
-      audio.play();
-      toggleButton.textContent = 'Pause Music';
-    });
 
     window.onload = () => {
       launchConfetti();
